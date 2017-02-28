@@ -3,8 +3,7 @@ import os
 from handlers.MainHandler import *
 
 app = web.Application(
-    [(r"/", MainHandler)	
-     ],
+    [(r"/", MainHandler)	],
     static_path='static',
     debug=True
     )
