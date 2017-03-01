@@ -14,7 +14,7 @@ pymongo
     collec_user = db_livechat.[collection_name] ==> db_livechat.user
     
 4- find a record in user collection
-    collec_user({"key":"value"}) ==> collec_user({"_id":2})
+    collec_user.find_one({"key":"value"}) ==> collec_user({"_id":2})
     if nothing to return None is returned
     
 5- to insert a single document
