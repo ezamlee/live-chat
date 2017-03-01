@@ -74,20 +74,15 @@ db.user.insert([
                     {_id:20,userName:"aya ahmed",image:"/pic/D05.png",friend:[[14,1],[19,1],[20,1]]}
 ])
 
-
-
 db.groups.insert([
-                    {_id:1,groupName:"read",image:"/pic/Male-Avatar-Bowler-Hat-icon.png",file:"/chat/time1.txt",groupmember:[[5,1],[6,0],[7,1]]},
-                    {_id:2,groupName:"write",image:"/pic/Male-Avatar-Bow-Tie-icon.png",file:"/chat/time2.txt",groupmember:[[13,1],[4,1],[12,1]]},
-                    {_id:3,groupName:"run",image:"/pic/Male-Avatar-Cool-Cap-icon.png",file:"/chat/time3.txt",groupmember:[[12,1],[7,1],[10,0]]},
-                    {_id:4,groupName:"chat",image:"/pic/Male-Avatar-Cool-Sunglasses-icon.png",file:"/chat/time4.txt",groupmember:[[8,0],[10,1],[8,1]]},
-                    {_id:5,groupName:"program",image:"/pic/Male-Avatar-Emo-Haircut-icon.png",file:"/chat/time5.txt",groupmember:[[13,1],[8,1],[9,0]]},
-                    {_id:6,groupName:"sleep",image:"/pic/Male-Avatar-Goatee-Beard-icon.png",file:"/chat/time6.txt",groupmember:[[11,1],[9,1],[4,1]]},
-                    {_id:7,groupName:"eat",image:"/pic/Male-Avatar-Hair-icon.png",file:"/chat/time7.txt",groupmember:[[10,1],[10,1],[9,1]]},
-                    {_id:8,groupName:"drink",image:"/pic/Male-Avatar-icon.png",file:"/chat/time8.txt",groupmember:[[9,1],[8,1],[4,1]]},
-                    {_id:9,groupName:"ali",file:"/chat/time9.txt",groupmember:[[8,1]]},
-                    {_id:10,groupName:"ahmed",file:"/chat/time10.txt",groupmember:[[3,1]]}
+                    {_id:1,groupName:"read",image:"/pic/Male-Avatar-Bowler-Hat-icon.png",file:"/chat/time1.txt",groupmember:[[5,1],[6,0],[7,1]],groupType:"public"},
+                    {_id:2,groupName:"write",image:"/pic/Male-Avatar-Bow-Tie-icon.png",file:"/chat/time2.txt",groupmember:[[13,1],[4,1],[12,1]],groupType:"public"},
+                    {_id:3,groupName:"run",image:"/pic/Male-Avatar-Cool-Cap-icon.png",file:"/chat/time3.txt",groupmember:[[12,1],[7,1],[10,0]],groupType:"public"},
+                    {_id:4,groupName:"chat",image:"/pic/Male-Avatar-Cool-Sunglasses-icon.png",file:"/chat/time4.txt",groupmember:[[8,0],[10,1],[8,1]],groupType:"public"},
+                    {_id:5,groupName:"program",image:"/pic/Male-Avatar-Emo-Haircut-icon.png",file:"/chat/time5.txt",groupmember:[[13,1],[8,1],[9,0]],groupType:"public"},
+                    {_id:6,groupName:"sleep",image:"/pic/Male-Avatar-Goatee-Beard-icon.png",file:"/chat/time6.txt",groupmember:[[11,1],[9,1],[4,1]],groupType:"public"},
+                    {_id:7,groupName:"eat",image:"/pic/Male-Avatar-Hair-icon.png",file:"/chat/time7.txt",groupmember:[[10,1],[10,1],[9,1]], groupType:"public"},
+                    {_id:8,groupName:"drink",image:"/pic/Male-Avatar-icon.png",file:"/chat/time8.txt",groupmember:[[9,1],[8,1],[4,1]], groupType:"public"},
+                    {_id:9,groupName:"ali",file:"/chat/time9.txt",groupmember:[[8,1]], groupType:"private"},
+                    {_id:10,groupName:"ahmed",file:"/chat/time10.txt",groupmember:[[3,1]], groupType:"private"}
 ])
-
-
-
