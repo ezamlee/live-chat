@@ -2,25 +2,26 @@
 {% block title %} Main Page {% end %}
 {% block script %} 
 <script src="{{ static_url('js/app.js') }}"></script> 
+<link rel="stylesheet" type="text/css" href="{{ static_url('css/index.css') }}">
+ 
 
 {% end %}
 {% block body %}
-<div id="application">
-    <div id="menubar">
-    </div>
-    <div id="leaderboard">
-    </div>
-    <div id="mygroup">
-    </div>
-    <div id="allgroup">
-    </div>
-    <div id="mypeople">
-    </div>
-    <div id="allpeople">
-    </div>
-    <div id="chatroom">
-    </div>
-    <div id="footer">
-    </div>
+<div style="border:1px black solid;height: 50px;padding: 5px;">
+ <ul class="topnav" id="myTopnav">
+  <li>Leader Board</li>
+  <li id="menugroup">Groups</li>
+  <li id="menupeople">People</li>
+</ul>
+<ul class="right">
+  <li style="margin-left: 30px" ><img src='static{{ imgeurl }}' width="50" /></li>
+  <li ><p>{{ username }}</p></li>
+</ul>
 </div>
+<div id="application">
+
+</div>
+<script> 
+var userid = {{ userid }}
+</script>
 {% end%}

@@ -1,0 +1,52 @@
+{% extends ../templates/base.html %}
+{% block title %} Login Page {% end %}
+	
+{% block script %} 
+	<link rel="stylesheet" href="{{ static_url('css/login.css') }}">
+	<script src="{{ static_url('js/login.js') }}"></script>
+ {% end %}
+
+ {% block body %} 
+<div id="login-form">
+<h2>Login Form</h2>
+<div>
+	<div class="spacer">
+	    <label><b>Username</b></label>
+	    <input type="text" placeholder="Enter Username" name="lgusername" id="lgusername" required>
+
+	    <label><b>Password</b></label>
+	    <input type="password" placeholder="Enter Password" name="lgpassword" id="lgpassword" required>
+	        
+	    <button id="btlogin"> Login </button>
+	    <div id="lgerrornotice"></div>
+    </div>
+</div>
+</div>
+
+<div id="registration-form">
+<h2>Registration Form</h2>
+<div>
+	<div class="spacer">
+	    <label><b>Username</b></label>
+	    <input type="text" placeholder="Enter Username" name="rgusername" id="rgusername" required>
+
+	    <label><b>Password</b></label>
+	    <input type="password" placeholder="Enter Password" name="rgpassword" id="rgpassword" required>
+	    <input type="password" placeholder="Enter Password" name="rgpassword" id="rrgpassword" required>   
+	    <button id="btregister"> Register </button>
+	    <div id="rgerrornotice"></div>
+    </div>
+</div>
+</div>
+<div>
+<input id="btviewlogin" type="button" onclick="$('#login-form').css('display','block');$('#registration-form').css('display','none')" value="Login">
+<input id="btviewreg" type="button" onclick="$('#registration-form').css('display','block');$('#login-form').css('display','none')" value="Registration">
+</div>
+<div id="contain_list" style="width: 100%;text-align: center;position: absolute;top:50px;">
+	<div id="list-of-img">
+			
+	</div>
+</div>
+
+
+ {% end %}
