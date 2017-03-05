@@ -11,15 +11,25 @@ $(document).ready(function(){
 				data:{"username":username,"password":password},
 				method:"GET",
 				success:function(e){
-					uid = e['userId']
+					uid = e['userName']
+					username = e['userName']
+					image = e['image']
 					console.log(uid)
+					console.log(username)
+					console.log(image)
 					if(uid == undefined){
 						$('#lgerrornotice').append("<p>PLEASE RECHECK YOUR USERNAME AND MATCHED PASSWORD</p>");
-					} 
-					else{
-						window.location = "http://localhost:8888/?userid="+uid	
 					}
-					
+					else{
+						window.location = "http://localhost:8888/?userid="
+															+uid
+															+"&username="
+															+username
+															+"&imgeurl="
+															+image;
+
+					}
+
 				},
 				error:function(error){
 					$('#lgerrornotice').append("<p>PLEASE RECHECK YOUR USERNAME AND MATCHED PASSWORD</p>");
@@ -27,7 +37,7 @@ $(document).ready(function(){
 
 			});
 			console.log("ajax done")
-		
+
 		}
 	});
 	$("#btregister").click(function(){

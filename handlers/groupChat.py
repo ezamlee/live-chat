@@ -2,9 +2,10 @@ from tornado import web,websocket
 from pymongo import *
 import time
 import json
+import ast
 
 #on getting added by one of the users, a group is generated between those users with type private
-# 
+#
 client = MongoClient()
 db_livechat = client.livechat
 
@@ -38,7 +39,28 @@ class WSHandler(websocket.WebSocketHandler):
 #db vars
 		collec_group = db_livechat.groups
 		clientsId=collec_group.find_one({"_id":gId,"groupType":"public" },{"groupmember":1, "_id":0, 'file':1})
-		collec_user= db_livechat.user
+		collec_user= db_livechat.user		LOMstat.append(" :online: ")
+						gMem[memNames["userName"]]=	" :online: "
+					elif status==1 and arr[0]==userId:
+						isMember=1
+						LOMstat.append(" ")
+						gMem[memNames["userName"]]=	""
+			if isMember==1:
+				print("dic")
+	#			print(str(gMem)
+	#			jsonList = json.dumps(gMem)
+	#			loaded_jsonList = json.loads(jsonList)
+
+	def on_message(self,msg):
+
+		client_dict = ast.literal_eval(msg)
+		msg_type =client_dict['type']
+		gid = client_dict['gid']
+		if msg_type == 'set':
+			handlers.append(self)
+			id = len(handlers)
+			try:
+
 		collec_stat= db_livechat.stat
 		clientsNames=[]
 		if clientsId is None:
@@ -67,8 +89,8 @@ class WSHandler(websocket.WebSocketHandler):
 						gMem[memNames["userName"]]=	" :online: "
 					elif status==1 and arr[0]==userId:
 						isMember=1
-						LOMstat.append(" ")	
-						gMem[memNames["userName"]]=	""				
+						LOMstat.append(" ")
+						gMem[memNames["userName"]]=	""
 			if isMember==1:
 				print("dic")
 	#			print(str(gMem)
@@ -76,6 +98,23 @@ class WSHandler(websocket.WebSocketHandler):
 	#			loaded_jsonList = json.loads(jsonList)
 
 	def on_message(self,msg):
+
+		client_dict = ast.literal_eval(msg)
+		msg_type =client_dict['type']
+		gid = client_dict['gid']
+		if msg_type == 'set':
+			handlers.append(self)
+			id = len(handlers)
+			try:
+				clients.gid.append(id)
+			except KeyError:
+				clients.gid = []
+				client.gid.append(id)
+		if msg_type == 'to':
+			for i in range(len(client.gid)):
+				handlers[client.gid[i]].write(client_dict['msg'])
+
+
 		if isMember==1:
 			print("ektb")
 		# one to selected group based on gId
@@ -95,6 +134,7 @@ class WSHandler(websocket.WebSocketHandler):
 			fConv=open(conv,'a')
 			fConv.write(msg +"\n"+ time.strftime("%c") +"\n")
 			fConv.close()
+			
 	def on_close(self):
 		if self in clients[gId]:
 			clients[gId].remove(self)
@@ -115,12 +155,11 @@ class GroupChatHandler(web.RequestHandler):
 		global userId,gId
 		userId = int(self.get_query_argument('userId')[0])
 		gId = int(self.get_query_argument('gId')[0])
-		
-		self.render("../templates/chat.html") 
+
+		self.render("../templates/chat.html")
 ############TESTING ##################
 #http://localhost:8888/groupChat?userId=8&gId=5
 #http://localhost:8888/groupChat?userId=9&gId=5
 
 #http://localhost:8888/groupChat?userId=7&gId=1
 #http://localhost:8888/groupChat?userId=6&gId=1
-
