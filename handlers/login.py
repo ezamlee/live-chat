@@ -15,6 +15,8 @@ class check_userHandler(web.RequestHandler):
 		db_livechat = client.livechat
 		collec_login = db_livechat.login
 		query  = collec_login.find_one({"username":username,"password":password},{"userId":1,"_id":0})
+		query  = db_livechat.user.find_one({"_id":int(query["userId"])},{"_id":1,"image":1,"userName":1})
+		print(query)
 		try:
 			self.write(query)
 		except TypeError:
@@ -35,7 +37,7 @@ class update_userHandler(web.RequestHandler):
 		pic      = self.get_query_arguments("pic")[0]
 		user_id = max_id+1
 
-		
+
 		dict_user={}
 		dict_user["_id"] = user_id;
 		dict_user["userName"] = username;

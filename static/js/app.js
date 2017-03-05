@@ -36,7 +36,7 @@ var getAllfriends = function (){
 				record +='</div>';
 				$("#top").append(record);
 			}
-			
+
 			$("#people").append("</div>");
 		}
 	})
@@ -62,7 +62,7 @@ function getAllUsers(){
 			   	record += '</div>';
 				$("#bot").append(record);
 			}
-			
+
 			$("#people").append("</div>");
 		}
 	})
@@ -104,7 +104,8 @@ function removeFriends(){
 		success: function(res){
 			//my friends
 			console.log("from remove fun ",res)
-	})
+	}
+})
 }
 //removeFriends()
 //addFriends()
