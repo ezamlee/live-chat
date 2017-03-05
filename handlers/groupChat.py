@@ -24,8 +24,8 @@ class WSHandler(websocket.WebSocketHandler):
 			for handler in phonebook.gid:
 				response =  str(client_msg['name']) + " : " + str(client_msg['msg'])
 				handler.write(response)
-		def close(self):
-			for key in phonebook.keys():
-				for handler in phonebook.key:
-					if handler == self:
-						phonebook.key.remove(self)
+	def close(self):
+		for key in phonebook.keys():
+			for handler in phonebook.key:
+				if handler == self:
+					phonebook.key.remove(self)
