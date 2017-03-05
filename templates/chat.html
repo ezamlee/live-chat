@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<title>Main Chat Page</title>
+		<style type="text/css">
+			#wrapper{
+				width: 800px;
+				border:1px black solid;
+				padding: 5px;
+			}
+			#btchange , #btsend {
+				width: 100px;
+				padding: 10px;
+			}
+			#username ,#message{
+				width: 600px;
+				margin: 5px;
+				padding: 5px;
+				height: 45px;
+			}
+			#chat-area{
+				border:1px black solid;
+				width: 800px;
+				height: 400px;
+			}
+		</style>
+		<script src="{{ static_url('js/jquery.js') }}"></script>
+
+	</head>
+	<body>
+	<div id="wrapper">
+		<label>Name</label><input type="text" name="username" id="username"> <button id="btchange">Change</button>
+		<select id="users">
+			<option value="All"> Ahmed</option>
+		</select>
+		<div id="chat-area"></div>
+		<label>Message</label><input type="text" name="message" id="message"> <button id="btsend">send</button>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var ws = new WebSocket("ws://localhost:1234/ws");
+			var msg = {
+					"type" : "set",
+					"gid"  : 1,
+				}
+			ws.send(JSON.stringfy(msg))
+			
+			var send_data = function(){
+				msg = {
+					"type" : "send",
+					"gid"  : 1,
+					"name" : "Essam",
+					"msg"  : "Hi"
+				}
+				ws.send(JSON.stringfy(msg))	
+			}
+			console.log(msg)
+			console.log(ws)
+		});
+	</script>
+	</body>
+</html>
