@@ -37,6 +37,11 @@
 
 	</body>
 	<script type="text/javascript">
+		var username = "ahmed"
+		var gid = 9
+		var uid = 1
+	</script>
+	<script type="text/javascript">
 		var send_data
 		$(document).ready(function(){	
 			var ws = new WebSocket("ws://localhost:1234/ws")
@@ -51,8 +56,8 @@
 			$("#btsend").click(function(){
 				msg = {
 					"type" : "send",
-					"gid"  : 1,
-					"name" : "Essam",
+					"gid"  : gid,
+					"name" : username,
 					"msg"  : $("#message").val()
 				}
 				ws.send(JSON.stringify(msg))	
