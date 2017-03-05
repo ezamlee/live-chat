@@ -22,6 +22,142 @@
 
 </div>
 <script> 
-var userid = {{ userid }}
+	var userid = {{ userid }}
 </script>
+<script>
+	$("#menupeople").click(function(){
+		var getAllfriends = function (){
+			console.log(userid)
+			var friendsList = []
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/people',
+				data: {"userid": userid},
+
+				success: function(res){
+					//my friends
+					//$("body div").remove();
+					$("#application").append("<div id='top'>");
+					for(var j=0; j<Object.keys(res).length; j++)
+					{
+						friendsList[j] = res[j]._id
+						var path = "static" + res[j].img
+						var record = "<div class='per'>";
+						if(res[j].status == 1.0)
+						{
+							record += '<img class="private" value = ' + res[j]._id + ' src=' + path + '>';
+						}
+						else if(res[j].status == 0)
+						{
+							record += '<img value = ' + res[j]._id + ' src=' + path + '>';
+						}
+						record += '<p>' + res[j].userName  + '</p>';
+						if(res[j].status == 1.0)
+						{
+							record += '<button class="remove" id="' + res[j]._id + '">unfriend</button>';
+						}
+						else if(res[j].status == 0)
+						{
+							record += '<button class="accept" id=" ' + res[j]._id + '">Accept</button>';
+						}
+
+						record +='</div>';
+						$("#top").append(record);
+					}
+			
+					$("#people").append("</div>");
+				},
+				error:function(error,k){
+					console.log(error)
+					console.log(k)
+				}
+			})
+		}
+		//get all user except friends
+		function getAllUsers(){
+
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/allpeople',
+				data: {"userid": userid},
+
+				success: function(res){
+					//all users
+					$("#application").append("<div id='bot'>");
+					for(var j=0; j<Object.keys(res).length; j++)
+					{
+						var path = "static" + res[j].image
+						var record = "<div class='per'>";
+						record += '<img value = ' + res[j]._id + ' src=' + path + '>';
+						record += '<p>' + res[j].username  + '</p>';
+						record += '<button class="add" id=" ' + res[j]._id + '">Add</button>';
+					   	record += '</div>';
+						$("#bot").append(record);
+					}
+			
+					$("#people").append("</div>");
+				}
+			})
+		}
+		getAllfriends()
+		getAllUsers()
+	})
+	
+</script>
+<script>
+	$("#application").on('click', 'button.remove' , function(){
+		console.log("inside remove but");
+		var removeid = $("button.remove").attr("id");
+		// remove friends
+		function removeFriends(){
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/remove',
+				data: {"userid": userid, "friendid": removeid},
+
+				success: function(res){
+					//my friends
+					console.log("from remove fun ",res)
+			})
+		}
+	})
+	$("#application").on('click', 'button.accept' , function(){
+		console.log("inside accept but");
+		var acceptid = $("button.accept").attr("id");
+		//accept friends request
+		function updateFriends(){
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/update',
+				data: {"userid": userid, "friendid": acceptid},
+
+				success: function(res){
+					//my friends
+					console.log("from update ",res)
+
+				}
+			})
+		}
+	})
+	$("#application").on('click', 'button.add', function(){
+		console.log("inside add but");
+		var addid = $("button.add").attr("id");
+		function addFriends(){
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/add',
+				data: {"userid": userid, "friendid": addid},
+
+				success: function(res){
+					console.log("from add ", res)
+				}
+			})
+		}
+	})
+	$("#application").on('click', 'img' , function(){
+		var frndid = $("img").attr("value");
+		console.log(frndid);
+	})
+</script>
+
 {% end%}

@@ -17,7 +17,6 @@ $(document).ready(function(){
 						$('#lgerrornotice').append("<p>PLEASE RECHECK YOUR USERNAME AND MATCHED PASSWORD</p>");
 					} 
 					else{
-						window.location = "http://localhost:8888/?userid="+uid	
 					}
 					
 				},
