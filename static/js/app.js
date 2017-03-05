@@ -9,8 +9,7 @@ var getAllfriends = function (){
 
 		success: function(res){
 			//my friends
-			$("body div").remove();
-			$("#people").append("<div id='top'>");
+			$("#application").append("<div id='top'>");
 			for(var j=0; j<Object.keys(res).length; j++)
 			{
 				friendsList[j] = res[j]._id
@@ -52,7 +51,7 @@ function getAllUsers(){
 
 		success: function(res){
 			//all users
-			$("#people").append("<div id='bot'>");
+			$("#application").append("<div id='bot'>");
 			for(var j=0; j<Object.keys(res).length; j++)
 			{
 				var path = "static" + res[j].image

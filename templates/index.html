@@ -22,6 +22,250 @@
 
 </div>
 <script> 
+<<<<<<< HEAD
+	var userid = {{ userid }}
+=======
 var userid = {{ userid }}
+$("#menugroup").click(function(){
+        $('#allgroups').remove();
+        $('#mygroups').remove();
+        $.ajax({
+            url:"http://localhost:6888/mygroups",
+            method:"GET",
+            data:{"userid":userid},
+            success:function(res){     
+                gid_arr = res.groupid
+                gname_arr = res.groupnames
+                gstat = res.groupstat
+                groupimage = res.groupimage
+
+            //my groups
+            $('#application').append('<div id="mygroups">');
+            $('#mygroups').append("<h3> My Groups </h3> ");
+
+            for(var i = 0 ; i < gname_arr.length ; i++)
+            {
+
+                var group_record = "<div class='per' style='width:300px;height:300px'>";
+                group_record +=  '<img  class="public" value="'+gid_arr[i]+'" src= "/static'+groupimage[i]+'">';
+                group_record += '<p>' + gname_arr[i]  + '</p>';
+
+                if ( gstat[i] == 1) 
+                {
+                    group_record += '<button id="leave" class="leave">Leave</button>';
+                }
+                else
+                {
+                    group_record += '<button class="requested">Requested</button>';
+                }
+
+                group_record +='</div>'
+                $('#mygroups').append(group_record);
+            }
+
+           
+            $('#application').append('</div>');
+
+            },
+            error:function(error,k){
+                console.log(error)
+                console.log(k)
+            }
+
+        });
+
+
+        $.ajax({
+            url:"http://localhost:5888/allgroups",
+            method:"GET",
+            data:{ "userid":userid},
+            success:function(res){     
+                gid_arr_1 = res.groupid
+                gname_arr_1 = res.groupnames
+                gstat_1 = res.groupstat
+                groupimage_1 = res.groupimage
+
+            //all groups
+            $('#application').append('<div id="allgroups">');
+            $('#allgroups').append("<h3> All Groups </h3> ");
+
+            for(var j = 0 ; j < gname_arr_1.length ; j++)
+            {
+                var group_record_1 = "<div class='per' style='width:300px;height:300px'>";
+                group_record_1 +=  '<img id="imgid" class="public" value="'+gid_arr_1[j]+'" src= "/static'+groupimage_1[j] + '">';
+                group_record_1 += '<p>' + gname_arr_1[j]  + '</p>';
+                group_record_1 += '<button  class="join">Join</button>';
+                group_record_1 +='</div>'
+                $('#allgroups').append(group_record_1);
+            }
+
+            $('#application').append('</div>');
+
+            },
+            error:function(error,k){
+                console.log(error)
+                console.log(k)
+            }
+
+        });
+	
+	//join action
+        console.log("join action")
+        $("#application").on("click",".join",function()
+            {
+            gid = $(this).prev().prev().attr('value');
+            $.ajax({
+                    url:"http://localhost:7888/join",
+                    method:"GET",
+                    data:{ "userid":userid,"groupid":gid },
+                    success:function(res)
+                    {     
+                        /*gid_arr = res.groupid
+                        gname_arr = res.groupnames
+                        gstat = res.groupstat
+                        groupimage = res.groupimage*/
+
+                    }
+            });
+
+        })
+    });
+>>>>>>> 84b0182ae98ff42ce16a2bef5ae8e9a0e44b0a48
 </script>
+<script>
+	$("#menupeople").click(function(){
+		var getAllfriends = function (){
+			console.log(userid)
+			var friendsList = []
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/people',
+				data: {"userid": userid},
+
+				success: function(res){
+					//my friends
+					//$("body div").remove();
+					$("#application").append("<div id='top'>");
+					for(var j=0; j<Object.keys(res).length; j++)
+					{
+						friendsList[j] = res[j]._id
+						var path = "static" + res[j].img
+						var record = "<div class='per'>";
+						if(res[j].status == 1.0)
+						{
+							record += '<img class="private" value = ' + res[j]._id + ' src=' + path + '>';
+						}
+						else if(res[j].status == 0)
+						{
+							record += '<img value = ' + res[j]._id + ' src=' + path + '>';
+						}
+						record += '<p>' + res[j].userName  + '</p>';
+						if(res[j].status == 1.0)
+						{
+							record += '<button class="remove" id="' + res[j]._id + '">unfriend</button>';
+						}
+						else if(res[j].status == 0)
+						{
+							record += '<button class="accept" id=" ' + res[j]._id + '">Accept</button>';
+						}
+
+						record +='</div>';
+						$("#top").append(record);
+					}
+			
+					$("#people").append("</div>");
+				},
+				error:function(error,k){
+					console.log(error)
+					console.log(k)
+				}
+			})
+		}
+		//get all user except friends
+		function getAllUsers(){
+
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/allpeople',
+				data: {"userid": userid},
+
+				success: function(res){
+					//all users
+					$("#application").append("<div id='bot'>");
+					for(var j=0; j<Object.keys(res).length; j++)
+					{
+						var path = "static" + res[j].image
+						var record = "<div class='per'>";
+						record += '<img value = ' + res[j]._id + ' src=' + path + '>';
+						record += '<p>' + res[j].username  + '</p>';
+						record += '<button class="add" id=" ' + res[j]._id + '">Add</button>';
+					   	record += '</div>';
+						$("#bot").append(record);
+					}
+			
+					$("#people").append("</div>");
+				}
+			})
+		}
+		getAllfriends()
+		getAllUsers()
+	})
+	
+</script>
+<script>
+	$("#application").on('click', 'button.remove' , function(){
+		console.log("inside remove but");
+		var removeid = $("button.remove").attr("id");
+		// remove friends
+		function removeFriends(){
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/remove',
+				data: {"userid": userid, "friendid": removeid},
+
+				success: function(res){
+					//my friends
+					console.log("from remove fun ",res)
+			})
+		}
+	})
+	$("#application").on('click', 'button.accept' , function(){
+		console.log("inside accept but");
+		var acceptid = $("button.accept").attr("id");
+		//accept friends request
+		function updateFriends(){
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/update',
+				data: {"userid": userid, "friendid": acceptid},
+
+				success: function(res){
+					//my friends
+					console.log("from update ",res)
+
+				}
+			})
+		}
+	})
+	$("#application").on('click', 'button.add', function(){
+		console.log("inside add but");
+		var addid = $("button.add").attr("id");
+		function addFriends(){
+			$.ajax({
+				method: 'get',
+				url: 'http://localhost:8888/add',
+				data: {"userid": userid, "friendid": addid},
+
+				success: function(res){
+					console.log("from add ", res)
+				}
+			})
+		}
+	})
+	$("#application").on('click', 'img' , function(){
+		var frndid = $("img").attr("value");
+		console.log(frndid);
+	})
+</script>
+
 {% end%}

@@ -33,3 +33,30 @@
             overflow: hidden;
         }
     ul.right li {float: right;color:black;} 
+
+
+
+/***********heba**************/
+
+#top, #mid, #bot
+{
+	width: 100%;
+	height: 300px;
+	margin-top: 20px;
+}
+.per
+{
+	float: left;
+	height: 160px;
+	width: 180px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	background-color: #eee;
+	text-align: center;
+	padding: 10px;
+}
+.per img{
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}

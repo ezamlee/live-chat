@@ -2,7 +2,7 @@ from tornado import web,ioloop
 from pymongo import *
 import os
 
-class mygroupHandler(web.RequestHandler):
+class allgroupsHandler(web.RequestHandler):
 	def get(self):
 		self.set_header("Access-Control-Allow-Origin", "*")
 		self.set_header("Access-Control-Allow-Headers", "x-requested-with")
@@ -10,7 +10,7 @@ class mygroupHandler(web.RequestHandler):
 
 		client = MongoClient()
 		uid  = self.get_query_arguments("userid")[0]
-
+		
 		client = MongoClient()
 		db_livechat = client.livechat
 		collec_groups = db_livechat.groups
@@ -23,13 +23,12 @@ class mygroupHandler(web.RequestHandler):
 		groupimage =[]
 
 		for doc in query:
-			print(doc)
-			for array in doc['groupmember']:
-				if int( array[0] ) == (int (uid) ):
-					groupnames.append(doc['groupName'])
-					groupid.append(doc['_id'])
-					groupstat.append(int (array[1]) )
-					groupimage.append( doc['image'] )
+				for array in doc['groupmember']:
+					if int( array[0] ) != (int (uid) ):
+						groupnames.append(doc['groupName'])
+						groupid.append(doc['_id'])
+						groupstat.append(int (array[1]) )
+						groupimage.append( doc['image'] )
 
 		dict_ret = {}
 		dict_ret['groupnames'] = groupnames
@@ -44,10 +43,10 @@ class mygroupHandler(web.RequestHandler):
 
 
 app = web.Application(
-    [(r"/mygroups", mygroupHandler)	],
+    [(r"/allgroups", allgroupsHandler)],
     static_path='static',
     debug=True
     )
 
-app.listen(6888)
+app.listen(5888)
 ioloop.IOLoop.current().start()
