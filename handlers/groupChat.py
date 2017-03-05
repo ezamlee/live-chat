@@ -27,9 +27,13 @@ class WSHandler(websocket.WebSocketHandler):
 				phonebook[gid] = []
 				phonebook[gid].append(self)
 		if msg_type == 'send':
+			print(msg)
+			print(client_msg['name'])
+			print(client_msg['msg'])
 			for handler in phonebook[gid]:
 				response =  str(client_msg['name']) + " : " + str(client_msg['msg'])
-				handler.write_message(response)
+				print(response)
+				handler.write_message(str(response))
 		print(phonebook)
 	def close(self):
 		for key in phonebook.keys():
@@ -37,6 +41,7 @@ class WSHandler(websocket.WebSocketHandler):
 				if handler == self:
 					phonebook[key].remove(self)
 		print(phonebook)
+		print("server closed")
 class renderHandler(web.RequestHandler):
 	def get(self):
 		self.render("../templates/chat.html")

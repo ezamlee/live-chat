@@ -24,38 +24,44 @@
 			}
 		</style>
 		<script src="{{ static_url('js/jquery.js') }}"></script>
-
+		<script type="text/javascript"></script>
 	</head>
 	<body>
 	<div id="wrapper">
-		<label>Name</label><input type="text" name="username" id="username"> <button id="btchange">Change</button>
-		<select id="users">
-			<option value="All"> Ahmed</option>
-		</select>
-		<div id="chat-area"></div>
+		<div id="chat-area">
+			
+
+		</div>
 		<label>Message</label><input type="text" name="message" id="message"> <button id="btsend">send</button>
 	</div>
+
+	</body>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			var ws = new WebSocket("ws://localhost:1234/ws");
-			var msg = {
+		var send_data
+		$(document).ready(function(){	
+			var ws = new WebSocket("ws://localhost:1234/ws")
+			ws.onopen = function (e) {
+			   var msg = {
 					"type" : "set",
 					"gid"  : 1,
 				}
-			ws.send(JSON.stringfy(msg))
-			
-			var send_data = function(){
+				ws.send(JSON.stringify(msg))
+				console.log("connection opened")
+			}	
+			$("#btsend").click(function(){
 				msg = {
 					"type" : "send",
 					"gid"  : 1,
 					"name" : "Essam",
-					"msg"  : "Hi"
+					"msg"  : $("#message").val()
 				}
-				ws.send(JSON.stringfy(msg))	
+				ws.send(JSON.stringify(msg))	
+			})
+
+			ws.onmessage = function(res){
+				console.log(res)
+				$("#chat-area").append("<p>"+res.data+"</p");
 			}
-			console.log(msg)
-			console.log(ws)
 		});
 	</script>
-	</body>
 </html>
