@@ -11,7 +11,7 @@ $(document).ready(function(){
 				data:{"username":username,"password":password},
 				method:"GET",
 				success:function(e){
-					uid = e['userName']
+					uid = e['_id']
 					username = e['userName']
 					image = e['image']
 					console.log(uid)
@@ -32,6 +32,7 @@ $(document).ready(function(){
 
 				},
 				error:function(error){
+					$('#lgerrornotice').text("")	
 					$('#lgerrornotice').append("<p>PLEASE RECHECK YOUR USERNAME AND MATCHED PASSWORD</p>");
 				}
 
