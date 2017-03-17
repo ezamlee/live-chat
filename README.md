@@ -3,7 +3,7 @@
 ##  Group Members
 1. Reem Essam
 ..* End to Ent Chat Rooms Handler
-2.Sarah Hassab
+2. Sarah Hassan
 ..* End to End Groups Handler
 3. Heba Bahaa
 ..* End to End Friend Handler
